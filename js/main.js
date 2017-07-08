@@ -2,11 +2,18 @@ window.onload = (() => {
     console.log("Game Ready");
     startGame();
 })
+
 function startGame(){
-    addClicks()
+    addClicks();
 }
-function addClicks(event){
+
+function addClicks(){
     document.querySelectorAll('.tile').forEach(function(item){
-        item.setAttribute('onclick', 'addClicks(event)')
+        item.setAttribute('onclick', 'clickEvent(event)');
     })
+}
+
+function clickEvent(event){
+    id = event.target.id;
+    console.log(id);
 }
