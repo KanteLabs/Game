@@ -30,3 +30,12 @@ h1 {
     height: 150px;
     box-sizing: border-box;
 }
+
+.tile p {
+    text-align: center;
+    line-height: 0;
+    position: relative;
+    top: 0.4em;
+    font-size: 150px;
+    margin: 0 auto;
+}
