@@ -10,10 +10,17 @@ const rightToLeft = /[2 4 6]/g;
 
 let counter = 0;
 let gameBoard = [
-    [0,0,0],
-    [0,0,0],
-    [0,0,0]
-]
+    ['','',''],
+    ['','',''],
+    ['','','']
+
+    /* 
+          0 1 2  
+       0 [0,1,2]
+       1 [3,4,5]
+       2 [6,7,8]
+    */
+];
 
 window.onload = (() => {
     console.log("Game Ready");
@@ -38,22 +45,52 @@ function clickEvent(event){
 
     if(event.target.className === "tile"){
         console.log(`Tile ${id} was clicked`);
-        //This will log a 'x' on the board
         if(counter%2 === 0 && counter !== 9){
-            counter++;
-            item.innerHTML += (`<p>x</p>`);
-            item.className = "tile clicked";
-            gameBoard[id] = 'x';
-            console.log(gameBoard);
-            checkScore(id);
-        }//This will log a 'o' on the board
-        else if(counter%2 !== 0 && counter !== 9){
-            counter++;
-            item.innerHTML += (`<p>o</p>`);
-            item.className = "tile clicked";
-            gameBoard[id] = 'o';
-            console.log(gameBoard);
-            checkScore(id);
+            if(id<=2){
+                gameBoard[0][id] = 'x';
+                item.innerHTML += (`<p>x</p>`);
+                item.className = "tile clicked";
+                counter++;
+                console.log(gameBoard[0]);
+                checkScore(id);
+            }else if(id<2 && id<=5){
+                gameBoard[1][id] = 'x';
+                item.innerHTML += (`<p>x</p>`);
+                item.className = "tile clicked";
+                counter++;
+                console.log(gameBoard[1]);
+                checkScore(id);
+            }else if(id<5 && id<=8){
+                gameBoard[2][id] = 'x';
+                item.innerHTML += (`<p>x</p>`);
+                item.className = "tile clicked";
+                counter++;
+                console.log(gameBoard[2]);
+                checkScore(id);
+            }
+        }else if(counter%2 !== 0 && counter !== 9){
+            if(id<=2){
+                gameBoard[0][id] = 'o';
+                item.innerHTML += (`<p>o</p>`);
+                item.className = "tile clicked";
+                counter++;
+                console.log(gameBoard[0]);
+                checkScore(id);
+            }else if(id<2 && id<=5){
+                gameBoard[1][id] = '0';
+                item.innerHTML += (`<p>o</p>`);
+                item.className = "tile clicked";
+                counter++;
+                console.log(gameBoard[1]);
+                checkScore(id);
+            }else if(id<5 && id<=8){
+                gameBoard[2][id] = 'o';
+                item.innerHTML += (`<p>o</p>`);
+                item.className = "tile clicked";
+                counter++;
+                console.log(gameBoard[2]);
+                checkScore(id);
+            }
         }//Ends the game if board gets full 
         if(counter === 9){
             console.log('No more moves available');
@@ -67,6 +104,9 @@ function clickEvent(event){
 
 //This function is called on every event click to see if a player has won the game.
 function checkScore(id){
+    if(id===4){
+        crossCheck(id);
+    }
     if(`${id}`.match(firstVal)){
        if(gameBoard[id] === gameBoard[id+1] && gameBoard[id+1] === gameBoard[id+2]){
         if(gameBoard[id]==='x'){
@@ -110,4 +150,9 @@ function checkScore(id){
         }
        }
     }
+}
+
+//Function to check for left to right or right to left possible moves on the board
+function crossCheck(id){
+    
 }
