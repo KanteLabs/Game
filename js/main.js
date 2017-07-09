@@ -45,6 +45,7 @@ function clickEvent(event){
 
     if(event.target.className === "tile"){
         console.log(`Tile ${id} was clicked`);
+
         if(counter%2 === 0 && counter !== 9){
             if(id<=2){
                 gameBoard[0][id] = 'x';
@@ -53,15 +54,15 @@ function clickEvent(event){
                 counter++;
                 console.log(gameBoard[0]);
                 checkScore(id);
-            }else if(id<2 && id<=5){
-                gameBoard[1][id] = 'x';
+            }else if(id>2 && id<=5){
+                gameBoard[1][id-3] = 'x';
                 item.innerHTML += (`<p>x</p>`);
                 item.className = "tile clicked";
                 counter++;
                 console.log(gameBoard[1]);
                 checkScore(id);
-            }else if(id<5 && id<=8){
-                gameBoard[2][id] = 'x';
+            }else if(id>5 && id<=8){
+                gameBoard[2][id-6] = 'x';
                 item.innerHTML += (`<p>x</p>`);
                 item.className = "tile clicked";
                 counter++;
@@ -76,15 +77,15 @@ function clickEvent(event){
                 counter++;
                 console.log(gameBoard[0]);
                 checkScore(id);
-            }else if(id<2 && id<=5){
-                gameBoard[1][id] = '0';
+            }else if(id>2 && id<=5){
+                gameBoard[1][id-3] = '0';
                 item.innerHTML += (`<p>o</p>`);
                 item.className = "tile clicked";
                 counter++;
                 console.log(gameBoard[1]);
                 checkScore(id);
-            }else if(id<5 && id<=8){
-                gameBoard[2][id] = 'o';
+            }else if(id>5 && id<=8){
+                gameBoard[2][id-6] = 'o';
                 item.innerHTML += (`<p>o</p>`);
                 item.className = "tile clicked";
                 counter++;
