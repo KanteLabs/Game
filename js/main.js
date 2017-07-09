@@ -131,6 +131,7 @@ function checkScore(id){
     }
 }
 
+//Displays a winner based on the value of result
 function checkWinner(result){
     result.match('xxx') ? gameOver('Player 1') : result.match('ooo') ? gameOver('Player 2') : null;
 }
