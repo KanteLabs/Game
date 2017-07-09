@@ -45,7 +45,7 @@ h2 {
 
 .gameBoard ul li {
     list-style-type: none;
-    background: #E49AB0;
+    background: #e49ab0;
     border: 1px solid black;
     width: 150px;
     height: 150px;
@@ -71,7 +71,12 @@ h2 {
     box-shadow: 7px 7px black;
 }
 
-/*Pseudo Selectors*/
+/*Special Case Selectors*/
 .gameBoard ul li:hover {
     cursor: pointer;
+    background: rgba(228, 154, 176, 0.7);
+}
+
+li.tile.clicked{
+    background: rgba(228, 154, 176, 0.8);
 }

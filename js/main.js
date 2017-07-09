@@ -21,7 +21,7 @@ window.onload = (() => {
 //Can be customized to load any necessary functions before the game starts
 function startGame(){
     addClicks();
-    score.querySelector('h2').innerText = ('Player 1 turn.');
+    score.querySelector('h2').innerText = ('Game Ready. Player 1 turn.');
 }
 
 //Adds a click event for every tile on the game-board
