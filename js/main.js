@@ -107,17 +107,26 @@ function checkScore(id){
 
     //Checks for a winner in each row
     gameBoard.map((row)=>{
-         result = row.reduce((curr, next)=>{
-            return curr + next;
+         result = row.reduce((prev, curr)=>{
+            return prev + curr;
         })
         checkWinner(result);
     })
 
     //Checks for a winner in each column
-    for(let i = 0; i < gameBoard.length;i++){
-        result = gameBoard[i].reduce((curr, next)=>{
-            return curr + next;
-        })
+    for( let i = 0; i < 3; i++){
+        result = gameBoard.reduce((prev, curr)=>{
+            return prev + curr[i];
+        }, 0)
+        checkWinner(result);
+    }
+
+    //Checks for a winner in diagonals
+    if((gameBoard[0][0] === gameBoard[1][1] && gameBoard[1][1] === gameBoard[2][2]) && gameBoard[1][1] !== ''){
+        result = (gameBoard[1][1]).repeat(3)
+        checkWinner(result);
+    }else if((gameBoard[0][2] === gameBoard[1][1] && gameBoard[1][1] === gameBoard[2][0]) && gameBoard[1][1] !== ''){
+        result = (gameBoard[1][1]).repeat(3)
         checkWinner(result);
     }
 }
