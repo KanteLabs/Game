@@ -1,18 +1,37 @@
-*{
-
-}
-
 body{
     box-sizing: border-box;
+    font-family: 'Open Sans Condensed', 'Times New Roman', Times, serif;
+    background: #DB5461;
 }
 
 .gameBoard {
     display: flex;
     flex-flow: column nowrap;
+    margin: 0 auto;
+    margin-top: 5em;
+    user-select: none;
 }
 
 h1 {
     text-align: center;
+    font-size: 4em;
+    margin-bottom: 5px;
+}
+
+h2 {
+    text-align: center;
+    font-size: 2em;
+}
+
+.score {
+    background: #bbb;
+    box-shadow: inset 4px 4px black;
+    width: 450px;
+    margin: 0 auto;
+    padding: 1em;
+    box-sizing: border-box;
+    margin-bottom: 1em;
+    user-select: none;
 }
 
 .gameBoard ul {
@@ -20,15 +39,18 @@ h1 {
     justify-content: center;
     margin-bottom: -1em;
     margin-left: -2em;
+    width: 80vw;
+    margin: 0 auto;
 }
 
 .gameBoard ul li {
     list-style-type: none;
-    background: red;
+    background: #E49AB0;
     border: 1px solid black;
     width: 150px;
     height: 150px;
     box-sizing: border-box;
+    user-select: none;
 }
 
 .tile p {
@@ -38,4 +60,18 @@ h1 {
     top: 0.4em;
     font-size: 150px;
     margin: 0 auto;
+}
+
+.gameBoard ul:last-child {
+    width: auto;
+    box-shadow: 7px 7px black;
+}
+
+.gameBoard ul:nth-child(3) li:last-child, .gameBoard ul:nth-child(4) li:last-child{
+    box-shadow: 7px 7px black;
+}
+
+/*Pseudo Selectors*/
+.gameBoard ul li:hover {
+    cursor: pointer;
 }
