@@ -1,24 +1,15 @@
 //Global Variables
-const firstVal = /[0 3 6]/g;
-const middleVal = /[1 4 7]/g;
-const finalVal = /[2 5 8]/g;
-const row1 = /[0 1 2]/g;
-const row2 = /[3 4 5]/g;
-const row3 = /[6 7 8]/g;
-const leftToRight = /[0 4 8]/g;
-const rightToLeft = /[2 4 6]/g;
-
+let score = document.querySelector('.score');
 let counter = 0;
 let gameBoard = [
     ['','',''],
     ['','',''],
     ['','','']
-
     /* 
-          0 1 2  
-       0 [0,1,2]
-       1 [3,4,5]
-       2 [6,7,8]
+       0 1 2  
+    0 [0,1,2]
+    1 [3,4,5]
+    2 [6,7,8]
     */
 ];
 
@@ -27,8 +18,10 @@ window.onload = (() => {
     startGame();
 })
 
+//Can be customized to load any necessary functions before the game starts
 function startGame(){
     addClicks();
+    score.querySelector('h2').innerText = ('Player 1 turn.');
 }
 
 //Adds a click event for every tile on the game-board
@@ -46,7 +39,9 @@ function clickEvent(event){
     if(event.target.className === "tile"){
         console.log(`Tile ${id} was clicked`);
 
+        //Updates the board for the 'X' player
         if(counter%2 === 0 && counter !== 9){
+            score.querySelector('h2').innerText = ('Player 2 turn.');
             if(id<=2){
                 gameBoard[0][id] = 'x';
                 item.innerHTML += (`<p>x</p>`);
@@ -68,8 +63,9 @@ function clickEvent(event){
                 counter++;
                 console.log(gameBoard[2]);
                 checkScore(id);
-            }
+            }//Updates the board for the 'o', player
         }else if(counter%2 !== 0 && counter !== 9){
+            score.querySelector('h2').innerText = ('Player 1 turn.');
             if(id<=2){
                 gameBoard[0][id] = 'o';
                 item.innerHTML += (`<p>o</p>`);
@@ -78,7 +74,7 @@ function clickEvent(event){
                 console.log(gameBoard[0]);
                 checkScore(id);
             }else if(id>2 && id<=5){
-                gameBoard[1][id-3] = '0';
+                gameBoard[1][id-3] = 'o';
                 item.innerHTML += (`<p>o</p>`);
                 item.className = "tile clicked";
                 counter++;
@@ -96,64 +92,41 @@ function clickEvent(event){
         if(counter === 9){
             console.log('No more moves available');
             counter = 0;
+            score.querySelector('h2').innerText = (`Game is a tie no more moves available`)
             // location.reload()
         }
     }else {
         console.log("Choose another tile")
+        score.querySelector('h2').innerText = (`That tile is already selected! ${counter%2 === 0 ? 'Player 1' : 'Player 2'} pick another tile!`);
     }
 }
 
 //This function is called on every event click to see if a player has won the game.
 function checkScore(id){
-    if(id===4){
-        crossCheck(id);
-    }
-    if(`${id}`.match(firstVal)){
-       if(gameBoard[id] === gameBoard[id+1] && gameBoard[id+1] === gameBoard[id+2]){
-        if(gameBoard[id]==='x'){
-            console.log('Player 1 won')
-        }else if(gameBoard[id]==='o'){
-            console.log('Player 2 won')
-        }
-       }else if(gameBoard[id] === gameBoard[3] && gameBoard[3] === gameBoard[6]){
-        if(gameBoard[id]==='x'){
-            console.log('Player 1 won')
-        }else{
-            console.log('Player 2 won')
-        }
-       }
-    }else if(`${id}`.match(middleVal)){
-        if(gameBoard[id] === gameBoard[id+1] && gameBoard[id+1] === gameBoard[id-1]){
-        if(gameBoard[id]==='x'){
-            console.log('Player 1 won')
-        }else if(gameBoard[id]==='o'){
-            console.log('Player 2 won')
-        }
-       }else if(gameBoard[id] === gameBoard[4] && gameBoard[4] === gameBoard[7]){
-        if(gameBoard[id]==='x'){
-            console.log('Player 1 won')
-        }else{
-            console.log('Player 2 won')
-        }
-       }
-    }else if(`${id}`.match(finalVal)){
-        if(gameBoard[id] === gameBoard[id-1] && gameBoard[id-1] === gameBoard[id-2]){
-        if(gameBoard[id]==='x'){
-            console.log('Player 1 won')
-        }else if(gameBoard[id]==='o'){
-            console.log('Player 2 won')
-        }
-       }else if(gameBoard[id] === gameBoard[5] && gameBoard[5] === gameBoard[8]){
-        if(gameBoard[id]==='x'){
-            console.log('Player 1 won')
-        }else{
-            console.log('Player 2 won')
-        }
-       }
+    let result;
+
+    //Checks for a winner in each row
+    gameBoard.map(function(row){
+         result = row.reduce((curr, next)=>{
+            return curr + next;
+        })
+        checkWinner(result);
+    })
+
+    //Checks for a winner in each column
+    for(let i = 0; i < gameBoard.length;i++){
+        result = gameBoard[i].reduce((curr, next)=>{
+            return curr + next;
+        })
+        checkWinner(result);
     }
 }
 
-//Function to check for left to right or right to left possible moves on the board
-function crossCheck(id){
-    
+function checkWinner(result){
+    result.match('xxx') ? gameOver('Player 1') : result.match('ooo') ? gameOver('Player 2') : null;
+}
+
+function gameOver(player){
+    console.log(`${player} won`);
+    score.querySelector('h2').innerText = (`${player} won!`);
 }
