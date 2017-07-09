@@ -1,3 +1,4 @@
+//Global Variables
 const firstVal = /[0 3 6]/g;
 const middleVal = /[1 4 7]/g;
 const finalVal = /[2 5 8]/g;
@@ -8,7 +9,11 @@ const leftToRight = /[0 4 8]/g;
 const rightToLeft = /[2 4 6]/g;
 
 let counter = 0;
-let gameBoard = []
+let gameBoard = [
+    [0,0,0],
+    [0,0,0],
+    [0,0,0]
+]
 
 window.onload = (() => {
     console.log("Game Ready");
@@ -32,7 +37,7 @@ function clickEvent(event){
     let item = document.getElementById(id);
 
     if(event.target.className === "tile"){
-        console.log(`Tile ${event.target.className} was clicked`);
+        console.log(`Tile ${id} was clicked`);
         //This will log a 'x' on the board
         if(counter%2 === 0 && counter !== 9){
             counter++;
@@ -83,12 +88,24 @@ function checkScore(id){
         }else if(gameBoard[id]==='o'){
             console.log('Player 2 won')
         }
+       }else if(gameBoard[id] === gameBoard[4] && gameBoard[4] === gameBoard[7]){
+        if(gameBoard[id]==='x'){
+            console.log('Player 1 won')
+        }else{
+            console.log('Player 2 won')
+        }
        }
     }else if(`${id}`.match(finalVal)){
         if(gameBoard[id] === gameBoard[id-1] && gameBoard[id-1] === gameBoard[id-2]){
         if(gameBoard[id]==='x'){
             console.log('Player 1 won')
         }else if(gameBoard[id]==='o'){
+            console.log('Player 2 won')
+        }
+       }else if(gameBoard[id] === gameBoard[5] && gameBoard[5] === gameBoard[8]){
+        if(gameBoard[id]==='x'){
+            console.log('Player 1 won')
+        }else{
             console.log('Player 2 won')
         }
        }
