@@ -2,6 +2,10 @@ const firstVal = /[0 3 6]/g;
 const middleVal = /[1 4 7]/g;
 const finalVal = /[2 5 8]/g;
 
+const colVal1 = /[0 1 2]/g;
+const colVal2 = /[3 4 5]/g;
+const colVal3 = /[6 7 8]/g;
+
 let counter = 0;
 let gameBoard = []
 
@@ -33,13 +37,11 @@ function clickEvent(event){
         item.innerHTML += (`<p>x</p>`);
         gameBoard[id] = 'x';
         console.log(gameBoard);
-        console.log(counter);
         checkScore(id);
     }//This will log a 'o' on the board
     else if(counter%2 !== 0 && counter !== 9){
         counter++;
         item.innerHTML += (`<p>o</p>`);
-        console.log(counter);
         gameBoard[id] = 'o';
         console.log(gameBoard);
         checkScore(id);
