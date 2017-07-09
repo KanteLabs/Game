@@ -106,7 +106,7 @@ function checkScore(id){
     let result;
 
     //Checks for a winner in each row
-    gameBoard.map(function(row){
+    gameBoard.map((row)=>{
          result = row.reduce((curr, next)=>{
             return curr + next;
         })
