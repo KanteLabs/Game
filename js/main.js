@@ -20,15 +20,34 @@ window.onload = (() => {
 
 //Can be customized to load any necessary functions before the game starts
 function startGame(){
+    document.querySelector('.menu').style.display = "none";
     addClicks();
     score.querySelector('h2').innerText = ('Game Ready. Player 1 turn.');
 }
 
 //Adds a click event for every tile on the game-board
 function addClicks(){
-    document.querySelectorAll('.tile').forEach(function(item){
+    document.querySelectorAll('.tile').forEach((item)=>{
         item.setAttribute('onclick', 'clickEvent(event)');
     })
+}
+
+//Runs if a player wins
+function removeClicks(){
+    document.querySelectorAll('.tile').forEach((item)=>{
+        item.setAttribute('onclick', '');
+        item.className = "tile";
+    })
+}
+
+function clearBoard(){
+    document.querySelectorAll('.tile').forEach((item)=>{
+        item.innerHTML = " "
+    })
+    gameBoard = [['','',''],['','',''],['','','']];
+    counter = 0;
+    removeClicks();
+    startGame();
 }
 
 //This function is called every time a user clicks on a tile
@@ -91,8 +110,9 @@ function clickEvent(event){
         }//Ends the game if board gets full 
         if(counter === 9){
             console.log('No more moves available');
-            counter = 0;
-            score.querySelector('h2').innerText = (`Game is a tie no more moves available`)
+            score.querySelector('h2').innerText = (`Game is a tie no more moves available`);
+            checkScore();
+            document.querySelector('.menu').style.display = "block";
             // location.reload()
         }
     }else {
@@ -139,4 +159,6 @@ function checkWinner(result){
 function gameOver(player){
     console.log(`${player} won`);
     score.querySelector('h2').innerText = (`${player} won!`);
+    removeClicks();
+    document.querySelector('.menu').style.display = "block";
 }
