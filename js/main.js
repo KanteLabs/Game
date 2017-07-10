@@ -1,37 +1,24 @@
 //Global Variables
 let score = document.querySelector('.score');
 let counter = 0;
-let gameBoard = [
-    ['','',''],
-    ['','',''],
-    ['','','']
-    /* 
-       0 1 2  
-    0 [0,1,2]
-    1 [3,4,5]
-    2 [6,7,8]
-    */
-];
+let gameBoard = [['','',''],['','',''],['','','']];
 
 window.onload = (() => {
     console.log("Game Ready");
     startGame();
 })
-
 //Can be customized to load any necessary functions before the game starts
 function startGame(){
     document.querySelector('.menu').style.display = "none";
     addClicks();
     score.querySelector('h2').innerText = ('Game Ready. Player 1 turn.');
 }
-
 //Adds a click event for every tile on the game-board
 function addClicks(){
     document.querySelectorAll('.tile').forEach((item)=>{
         item.setAttribute('onclick', 'clickEvent(event)');
     })
 }
-
 //Runs if a player wins
 function removeClicks(){
     document.querySelectorAll('.tile').forEach((item)=>{
@@ -39,7 +26,6 @@ function removeClicks(){
         item.className = "tile";
     })
 }
-
 function clearBoard(){
     document.querySelectorAll('.tile').forEach((item)=>{
         item.innerHTML = " "
@@ -49,63 +35,49 @@ function clearBoard(){
     removeClicks();
     startGame();
 }
-
+function updateBoard(item, val, id){
+    item.innerHTML += (`<p>${val}</p>`);
+    item.className = "tile clicked";
+    checkScore(id);
+}
 //This function is called every time a user clicks on a tile
 function clickEvent(event){
     let id = event.target.id;
     let item = document.getElementById(id);
-
     if(event.target.className === "tile"){
         console.log(`Tile ${id} was clicked`);
-
         //Updates the board for the 'X' player
         if(counter%2 === 0 && counter !== 9){
+            let val = 'x';
             score.querySelector('h2').innerText = ('Player 2 turn.');
             if(id<=2){
-                gameBoard[0][id] = 'x';
-                item.innerHTML += (`<p>x</p>`);
-                item.className = "tile clicked";
+                gameBoard[0][id] = val;
+                updateBoard(item, val, id);
                 counter++;
-                console.log(gameBoard[0]);
-                checkScore(id);
             }else if(id>2 && id<=5){
-                gameBoard[1][id-3] = 'x';
-                item.innerHTML += (`<p>x</p>`);
-                item.className = "tile clicked";
+                gameBoard[1][id-3] = val;
+                updateBoard(item, val, id);
                 counter++;
-                console.log(gameBoard[1]);
-                checkScore(id);
             }else if(id>5 && id<=8){
-                gameBoard[2][id-6] = 'x';
-                item.innerHTML += (`<p>x</p>`);
-                item.className = "tile clicked";
+                gameBoard[2][id-6] = val;
+                updateBoard(item, val, id);
                 counter++;
-                console.log(gameBoard[2]);
-                checkScore(id);
             }//Updates the board for the 'o', player
         }else if(counter%2 !== 0 && counter !== 9){
+            let val = 'o';
             score.querySelector('h2').innerText = ('Player 1 turn.');
             if(id<=2){
-                gameBoard[0][id] = 'o';
-                item.innerHTML += (`<p>o</p>`);
-                item.className = "tile clicked";
+                gameBoard[0][id] = val;
+                updateBoard(item, val, id);
                 counter++;
-                console.log(gameBoard[0]);
-                checkScore(id);
             }else if(id>2 && id<=5){
-                gameBoard[1][id-3] = 'o';
-                item.innerHTML += (`<p>o</p>`);
-                item.className = "tile clicked";
+                gameBoard[1][id-3] = val;
+                updateBoard(item, val, id);
                 counter++;
-                console.log(gameBoard[1]);
-                checkScore(id);
             }else if(id>5 && id<=8){
-                gameBoard[2][id-6] = 'o';
-                item.innerHTML += (`<p>o</p>`);
-                item.className = "tile clicked";
+                gameBoard[2][id-6] = val;
+                updateBoard(item, val, id);
                 counter++;
-                console.log(gameBoard[2]);
-                checkScore(id);
             }
         }//Ends the game if board gets full 
         if(counter === 9){
