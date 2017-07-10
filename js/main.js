@@ -81,14 +81,11 @@ function clickEvent(event){
             }
         }//Ends the game if board gets full 
         if(counter === 9){
-            console.log('No more moves available');
             score.querySelector('h2').innerText = (`Game is a tie no more moves available`);
             checkScore();
             document.querySelector('.menu').style.display = "block";
-            // location.reload()
         }
-    }else {
-        console.log("Choose another tile")
+    }else { //If player picks a tile thats already chosen
         score.querySelector('h2').innerText = (`That tile is already selected! ${counter%2 === 0 ? 'Player 1' : 'Player 2'} pick another tile!`);
     }
 }
@@ -96,7 +93,6 @@ function clickEvent(event){
 //This function is called on every event click to see if a player has won the game.
 function checkScore(id){
     let result;
-
     //Checks for a winner in each row
     gameBoard.map((row)=>{
          result = row.reduce((prev, curr)=>{
@@ -104,7 +100,6 @@ function checkScore(id){
         })
         checkWinner(result);
     })
-
     //Checks for a winner in each column
     for( let i = 0; i < 3; i++){
         result = gameBoard.reduce((prev, curr)=>{
@@ -112,7 +107,6 @@ function checkScore(id){
         }, 0)
         checkWinner(result);
     }
-
     //Checks for a winner in diagonals
     if((gameBoard[0][0] === gameBoard[1][1] && gameBoard[1][1] === gameBoard[2][2]) && gameBoard[1][1] !== ''){
         result = (gameBoard[1][1]).repeat(3)
@@ -122,15 +116,12 @@ function checkScore(id){
         checkWinner(result);
     }
 }
-
 //Displays a winner based on the value of result
 function checkWinner(result){
     result.match('xxx') ? gameOver('Player 1') : result.match('ooo') ? gameOver('Player 2') : null;
 }
-
 function gameOver(player){
-    console.log(`${player} won`);
     score.querySelector('h2').innerText = (`${player} won!`);
-    removeClicks();
     document.querySelector('.menu').style.display = "block";
+    removeClicks();
 }
